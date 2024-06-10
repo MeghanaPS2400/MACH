@@ -4,13 +4,18 @@ import {Link} from "react-router-dom";
 function Home(){
  return(
     <div>
-        <h1>Home</h1>
-        <Link to="/Components/executiesummary">ExecutiveSummary</Link><br/>
-        <Link to="/Components/talentfinder">talentfinder</Link><br/>
-        <Link to="/Components/sme">SME</Link><br/>
-        <Link to="/Components/replacement">ReplacementFinder</Link><br/>
-        <Link to="/Components/comparisionanalysis">ComparisionAnalysis</Link><br/>
-        <Link to="/Components/employeeskill">Employeeskill</Link>
+        <div class="home">
+           <div class="home-div">
+            <Link to="/Components/executiesummary"><div class="executive">ExecutiveSummary</div></Link><br/>
+            <Link to="/Components/talentfinder"><div class="talent">talentfinder</div></Link><br/>
+            <Link to="/Components/sme"><div class="sme">SME</div></Link><br/>
+            </div>
+            <div class="home-div">
+            <Link to="/Components/replacement"><div class="replacement">ReplacementFinder</div></Link><br/>
+            <Link to="/Components/comparisionanalysis"><div>ComparisionAnalysis</div></Link><br/>
+            <Link to="/Components/employeeskill"><div>Employeeskill</div></Link>
+            </div>
+        </div>
     </div>
     
 
