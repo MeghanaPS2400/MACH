@@ -1,6 +1,6 @@
 function Employeeskill(){
     return(
-       <h1>Employeeskill</h1>
+       <h1>Employeeskilll</h1>
     )
    }
    export default Employeeskill;
