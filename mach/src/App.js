@@ -1,5 +1,5 @@
 import { Route,Routes} from 'react-router-dom';
-import './App.css';
+import './styles/App.css';
 import Home from './Components/home';
 import ExecutiveSummary from './Components/executiesummary';
 import TalentFinder from './Components/talentfinder';
@@ -7,8 +7,6 @@ import SME from './Components/sme';
 import ReplacementFinder from './Components/replacement';
 import ComparisionAnalysis from './Components/comparisionanalysis';
 import Employeeskill from './Components/employeeskill';
-// 
-
 
 //base url: http://127.0.0.1:8000/mach/employees1/?
 
