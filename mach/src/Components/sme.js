@@ -25,6 +25,7 @@ function SME() {
       try {
          const response = await axios.get(url);
          setData(response.data);
+         console.log(url);
     
          const designations = Array.from(new Set(response.data.map(item => item.designation)));
          const names = Array.from(new Set(response.data.map(item => item.name)));
@@ -32,8 +33,9 @@ function SME() {
          const lead = Array.from(new Set(response.data.map(item => item.lead)));
          const manager_name = Array.from(new Set(response.data.map(item => item.manager_name)));
          const skills = Array.from(new Set(response.data.map(item => item.skills )));
+         
 
-
+console.log(skills);
 
 
          setDropdownOptions({ designations, names, accounts, lead, manager_name, skills });
@@ -164,6 +166,7 @@ function SME() {
                   <h2>{item.account}</h2>
                   <h2>{item.lead}</h2>
                   <h2>{item.manager_name}</h2>
+                
                </div>
             ))
          ) : (
