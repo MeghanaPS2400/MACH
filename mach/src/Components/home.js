@@ -4,6 +4,9 @@ import {Link} from "react-router-dom";
 function Home(){
  return(
     <div>
+        <h1>
+            MACH
+        </h1>
         <div class="home">
            <div class="home-div">
             <Link to="/Components/executiesummary" style={{ textDecoration: 'none' }}><div class="executive">ExecutiveSummary</div></Link><br/>

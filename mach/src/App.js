@@ -15,9 +15,7 @@ import Employeeskill from './Components/employeeskill';
 function App() {
   return (
     <div className="App">
-      <h1>
-        MACH
-      </h1>
+      
     <Routes>
       <Route path="/" element={<Home/>}></Route>
       <Route path="/Components/executiesummary" element={<ExecutiveSummary/>}></Route>
