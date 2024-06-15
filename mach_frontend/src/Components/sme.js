@@ -224,7 +224,7 @@ function SME() {
 
 
          <div>
-            <button onClick={() => handleValidatedFilterChange("all")}>All</button>
+            <button onClick={() => handleValidatedFilterChange("All")}>All</button>
             <button onClick={() => handleValidatedFilterChange("validated")}>Validated</button>
             <button onClick={() => handleValidatedFilterChange("not_validated")}>Not Validated</button>
          </div>
