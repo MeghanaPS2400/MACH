@@ -172,7 +172,7 @@ function SME() {
 
    return (
       <div>
-         {/* Filters */}
+      
          <Select
             isMulti
             name="designations"
@@ -225,16 +225,16 @@ function SME() {
 
          <div>
             <button onClick={() => handleValidatedFilterChange("all")}>All</button>
-            <button onClick={() => handleValidatedFilterChange("validated")}>Validated (Yes)</button>
-            <button onClick={() => handleValidatedFilterChange("not_validated")}>Not Validated (No)</button>
+            <button onClick={() => handleValidatedFilterChange("validated")}>Validated</button>
+            <button onClick={() => handleValidatedFilterChange("not_validated")}>Not Validated</button>
          </div>
 
          <div>
-            <button onClick={() => handleRatingFilterChange(5)}>Master (5)</button>
-            <button onClick={() => handleRatingFilterChange(4)}>Expert (4)</button>
-            <button onClick={() => handleRatingFilterChange(3)}>Advanced (3)</button>
-            <button onClick={() => handleRatingFilterChange(2)}>Intermediate (2)</button>
-            <button onClick={() => handleRatingFilterChange(1)}>Beginner (1)</button>
+            <button onClick={() => handleRatingFilterChange(5)}>Master</button>
+            <button onClick={() => handleRatingFilterChange(4)}>Expert</button>
+            <button onClick={() => handleRatingFilterChange(3)}>Advanced</button>
+            <button onClick={() => handleRatingFilterChange(2)}>Intermediate</button>
+            <button onClick={() => handleRatingFilterChange(1)}>Beginner</button>
             <button onClick={handleResetFilters}>Reset</button>
          </div>
 
