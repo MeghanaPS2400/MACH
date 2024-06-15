@@ -1,16 +1,28 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import Select from 'react-select';
+
+
+const FilteredCount = ({ count }) => {
+   return (
+      <div>
+         <h3>Number of People:</h3>
+         <p>{count}</p>
+      </div>
+   );
+};
 
 function SME() {
    const [data, setData] = useState([]);
-   const [url, setURL] = useState("http://127.0.0.1:8000/mach/employees1/?");
+   const [url, setURL] = useState("http://127.0.0.1:8000/mach/sme_finder/?");
    const [selectedDesignations, setSelectedDesignations] = useState([]);
    const [selectedNames, setSelectedNames] = useState([]);
    const [selectedAccounts, setSelectedAccounts] = useState([]);
    const [selectedLead, setSelectedLead] = useState([]);
    const [selectedManager, setSelectedManager] = useState([]);
    const [selectedSkills, setSelectedSkills] = useState([]);
+   const [validatedFilter, setValidatedFilter] = useState("all"); // all, validated, not_validated
+   const [ratingFilter, setRatingFilter] = useState(0); // 0 means no filter by rating
    const [dropdownOptions, setDropdownOptions] = useState({
       designations: [],
       names: [],
@@ -21,62 +33,96 @@ function SME() {
    });
    const [filteredData, setFilteredData] = useState([]);
 
+   useEffect(() => {
+      fetchData();
+   }, [url]);
+
    const fetchData = async () => {
       try {
          const response = await axios.get(url);
          setData(response.data);
-         console.log(url);
-    
-         const designations = Array.from(new Set(response.data.map(item => item.designation)));
-         const names = Array.from(new Set(response.data.map(item => item.name)));
-         const accounts = Array.from(new Set(response.data.map(item => item.account)));
-         const lead = Array.from(new Set(response.data.map(item => item.lead)));
-         const manager_name = Array.from(new Set(response.data.map(item => item.manager_name)));
-         const skills = Array.from(new Set(response.data.map(item => item.skills )));
-         console.log(designations);
 
-console.log(skills);
-
+         const designations = Array.from(new Set(response.data.map(item => item.designation))).sort();
+         const names = Array.from(new Set(response.data.map(item => item.name))).sort();
+         const accounts = Array.from(new Set(response.data.map(item => item.account))).sort();
+         const lead = Array.from(new Set(response.data.map(item => item.lead))).sort();
+         const manager_name = Array.from(new Set(response.data.map(item => item.manager_name))).sort();
+         const skills = Array.from(new Set(response.data.flatMap(item => {
+            if (Array.isArray(item.skills)) {
+               return item.skills.map(skill => Object.keys(skill)[0]);
+            }
+            return [];
+         }))).sort();
 
          setDropdownOptions({ designations, names, accounts, lead, manager_name, skills });
-
-
-         let filteredData = response.data;
-
-         if (selectedDesignations.length > 0) {
-            filteredData = filteredData.filter(item => selectedDesignations.includes(item.designation));
-         }
-
-         if (selectedNames.length > 0) {
-            filteredData = filteredData.filter(item => selectedNames.includes(item.name));
-         }
-
-         if (selectedAccounts.length > 0) {
-            filteredData = filteredData.filter(item => selectedAccounts.includes(item.account));
-         }
-
-         if (selectedLead.length > 0) {
-            filteredData = filteredData.filter(item => selectedLead.includes(item.lead));
-         }
-
-         if (selectedManager.length > 0) {
-            filteredData = filteredData.filter(item => selectedManager.includes(item.manager_name));
-         }
-
-         if (selectedSkills.length > 0) {
-            filteredData = filteredData.filter(item => selectedSkills.includes(item.skills));
-         }
-
-         setFilteredData(filteredData);
+         setFilteredData(response.data);
       } catch (error) {
          console.error('Error fetching data:', error);
       }
    };
-  
+
+   const filterData = () => {
+      let filteredData = [...data];
+
+      if (selectedDesignations.length > 0) {
+         filteredData = filteredData.filter(item => selectedDesignations.includes(item.designation));
+      }
+
+      if (selectedNames.length > 0) {
+         filteredData = filteredData.filter(item => selectedNames.includes(item.name));
+      }
+
+      if (selectedAccounts.length > 0) {
+         filteredData = filteredData.filter(item => selectedAccounts.includes(item.account));
+      }
+
+      if (selectedLead.length > 0) {
+         filteredData = filteredData.filter(item => selectedLead.includes(item.lead));
+      }
+
+      if (selectedManager.length > 0) {
+         filteredData = filteredData.filter(item => selectedManager.includes(item.manager_name));
+      }
+
+      if (validatedFilter === "validated") {
+         filteredData = filteredData.filter(item => item.validated === "yes");
+      } else if (validatedFilter === "not_validated") {
+         filteredData = filteredData.filter(item => item.validated === "no");
+      }
+
+
+      if (ratingFilter > 0) {
+         filteredData = filteredData.filter(item =>
+            item.skills.some(skillObj => {
+               const skill = Object.keys(skillObj)[0];
+               const rating = skillObj[skill];
+               return rating === ratingFilter;
+            })
+         );
+      }
+
+
+      if (selectedSkills.length > 0) {
+         filteredData = filteredData.filter(item =>
+            selectedSkills.some(skill => {
+               if (Array.isArray(item.skills)) {
+                  return item.skills.some(obj => Object.keys(obj)[0] === skill);
+               }
+               return false;
+            })
+         );
+      }
+      filteredData.sort((a, b) => a.name.localeCompare(b.name));
+      setFilteredData(filteredData);
+   };
+   // useEffect(() => {
+   //    fetchData();
+   // }, [url]);
+
 
    useEffect(() => {
-      fetchData();
-   }, [url]);
+      filterData();
+   }, [selectedDesignations, selectedNames, selectedAccounts, selectedLead, selectedManager, selectedSkills, validatedFilter, ratingFilter]);
 
    const handleDropdownChange = (selectedOptions, action) => {
       const { name } = action;
@@ -106,8 +152,27 @@ console.log(skills);
       }
    };
 
+   const handleValidatedFilterChange = (filter) => {
+      setValidatedFilter(filter);
+   };
+
+   const handleRatingFilterChange = (rating) => {
+      setRatingFilter(rating);
+   };
+
+   const handleResetFilters = () => {
+      setSelectedDesignations([]);
+      setSelectedNames([]);
+      setSelectedAccounts([]);
+      setSelectedLead([]);
+      setSelectedManager([]);
+      setSelectedSkills([]);
+      setValidatedFilter("All");
+   };
+
    return (
       <div>
+         {/* Filters */}
          <Select
             isMulti
             name="designations"
@@ -157,7 +222,24 @@ console.log(skills);
             onChange={handleDropdownChange}
          />
 
-         <button onClick={fetchData}>Search</button>
+
+         <div>
+            <button onClick={() => handleValidatedFilterChange("all")}>All</button>
+            <button onClick={() => handleValidatedFilterChange("validated")}>Validated (Yes)</button>
+            <button onClick={() => handleValidatedFilterChange("not_validated")}>Not Validated (No)</button>
+         </div>
+
+         <div>
+            <button onClick={() => handleRatingFilterChange(5)}>Master (5)</button>
+            <button onClick={() => handleRatingFilterChange(4)}>Expert (4)</button>
+            <button onClick={() => handleRatingFilterChange(3)}>Advanced (3)</button>
+            <button onClick={() => handleRatingFilterChange(2)}>Intermediate (2)</button>
+            <button onClick={() => handleRatingFilterChange(1)}>Beginner (1)</button>
+            <button onClick={handleResetFilters}>Reset</button>
+         </div>
+
+       
+         <FilteredCount count={filteredData.length} />
 
          {filteredData.length > 0 ? (
             filteredData.map((item, index) => (
@@ -167,20 +249,30 @@ console.log(skills);
                   <h2>{item.account}</h2>
                   <h2>{item.lead}</h2>
                   <h2>{item.manager_name}</h2>
-                
+                  <div>
+                     <h3>Skills:</h3>
+                     {Array.isArray(item.skills) && item.skills.length > 0 ? (
+                        item.skills.map(skillObj => {
+                           const skill = Object.keys(skillObj)[0];
+                           const rating = skillObj[skill];
+                           return (
+                              <div key={skill}>
+                                 <p>{skill}</p>
+                                 <p>{rating}</p>
+                              </div>
+                           );
+                        })
+                     ) : (
+                        <p>No skills data available</p>
+                     )}
+                  </div>
                </div>
             ))
          ) : (
             <div>No matching data found.</div>
          )}
-
       </div>
    );
-}
+};
 
 export default SME;
-
-
-
-
-
