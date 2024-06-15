@@ -161,6 +161,7 @@ function SME() {
    };
 
    const handleResetFilters = () => {
+      
       setSelectedDesignations([]);
       setSelectedNames([]);
       setSelectedAccounts([]);
@@ -168,6 +169,7 @@ function SME() {
       setSelectedManager([]);
       setSelectedSkills([]);
       setValidatedFilter("All");
+      setRatingFilter(0);
    };
 
    return (
