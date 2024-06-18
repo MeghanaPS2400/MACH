@@ -1,7 +1,9 @@
 import { Route,Routes} from 'react-router-dom';
 import './styles/App.css';
 import "./styles/TalentFinder.css";
-import Home from './Components/home';
+import "./styles/main.css";
+//import Home from './Components/home';
+import Main from './Components/main';
 import ExecutiveSummary from './Components/executiesummary';
 import TalentFinder from './Components/talentfinder';
 import SME from './Components/sme';
@@ -17,7 +19,7 @@ function App() {
     <div className="App">
       
     <Routes>
-      <Route path="/" element={<Home/>}></Route>
+      <Route path="/" element={<Main/>}></Route>
       <Route path="/Components/executiesummary" element={<ExecutiveSummary/>}></Route>
       <Route path="/Components/talentfinder" element={<TalentFinder/>}></Route>
       <Route path="/Components/sme" element={<SME/>}></Route>
