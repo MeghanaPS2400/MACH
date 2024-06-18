@@ -1,5 +1,6 @@
 import { Route,Routes} from 'react-router-dom';
 import './styles/App.css';
+import "./styles/TalentFinder.css";
 import Home from './Components/home';
 import ExecutiveSummary from './Components/executiesummary';
 import TalentFinder from './Components/talentfinder';
@@ -9,6 +10,7 @@ import ComparisionAnalysis from './Components/comparisionanalysis';
 import Employeeskill from './Components/employeeskill';
 
 //base url: http://127.0.0.1:8000/mach/employees1/?
+
 
 function App() {
   return (
