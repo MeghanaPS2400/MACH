@@ -8,7 +8,7 @@ export const fetchReplacementData = createAsyncThunk(
     return response.data;
   }
 );
-
+//
 const replacementSlice = createSlice({
   name: 'replacement',
   initialState: {
