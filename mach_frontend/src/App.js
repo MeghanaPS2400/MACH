@@ -13,7 +13,6 @@ import Employeeskill from './Components/employeeskill';
 
 //base url: http://127.0.0.1:8000/mach/employees1/?
 
-
 function App() {
   return (
     <div className="App">

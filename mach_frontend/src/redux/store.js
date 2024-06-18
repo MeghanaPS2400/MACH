@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import usersReducer from './talentReducer';
+import replacementReducer from './replacementslice.js';
 
 const store = configureStore({
   reducer: {
-   users: usersReducer
-  }
+    replacement: replacementReducer,
+  },
 });
 
 export default store;
