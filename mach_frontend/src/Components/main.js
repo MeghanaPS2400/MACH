@@ -7,7 +7,7 @@ import replacementImage from "../assets/replacementFinder.png";
 import comparisionImage from "../assets/comparisionAnalysis.png";
 import skillImage from "../assets/employeeSkill.png";
 import logo from "../assets/logo.png";
-import backgroundImage from "../assets/wallpaper1.1.jpg"; // Import your background image
+import backgroundImage from "../assets/wallpaper1.1.jpg"; 
 
 function Main() {
 
@@ -16,7 +16,7 @@ function Main() {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'contain',
     backgroundPosition: 'center',
-    height: '500px', // Adjust height as needed
+    height: '500px', 
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -28,7 +28,7 @@ function Main() {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // White overlay with 50% opacity
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', 
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
