@@ -5,10 +5,10 @@
     font-family: Arial, sans-serif;
   }
   
-  .filters {
+  .Talentfilters {
     display: flex;
     flex-wrap: wrap;
-    padding: 10px 20px;
+    padding: 10px;
     background-color: #1a1919;
     
   }
@@ -31,7 +31,8 @@
   
 
   .clear-button {
-    margin-top: 10px;
+    margin-top:10px;
+    margin-left:8px;
     padding: 10px 15px;
     background-color: #ff4d4d;
     color: white;
@@ -54,7 +55,10 @@
   .table-container {
     flex: 1;
     overflow-x: auto;
+    overflow-y:scroll;
+    height:410px;
     margin-right: 20px;
+
   }
   
   .results-table {
@@ -80,11 +84,11 @@
     margin-top: 20px;
   }
   
-.loading img{width:100px;
-height:100px;
+.Talentloading img{width:70px;
+height:70px;
 }
 
-.loading{display:flex;
+.Talentloading{display:flex;
   justify-content:center;
   align-items:center;
 height:500px;}

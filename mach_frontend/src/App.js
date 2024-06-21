@@ -1,6 +1,5 @@
 import { Route,Routes} from 'react-router-dom';
 import './styles/App.css';
-import "./styles/TalentFinder.css";
 import "./styles/main.css";
 //import Home from './Components/home';
 import Main from './Components/main';

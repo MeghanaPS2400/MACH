@@ -13,7 +13,7 @@ import {
   setFilteredMatches,
   clearAllFilters
 } from '../redux/replacementslice.js';
-import loadingGif from '../assets/loading-white.gif'; // Import your loading gif
+import loadingGif from '../assets/loading.gif'; // Import your loading gif
 
 const SkillTable = ({ skills }) => {
   return (
@@ -170,7 +170,7 @@ function ReplacementFinder() {
 
   if (status === 'loading') {
     return (
-      <div className="loading">
+      <div className="Talentloading">
         <img src={loadingGif} alt="Loading" />
       </div>
     );

@@ -3,7 +3,7 @@ padding:0;}
 
 /*home.js*/
 
-body{background: #efeded;
+body{background-color: #a0c0e1;
   font-family: "Poppins", sans-serif;
 }
 
@@ -29,7 +29,7 @@ height:50px;}
 .home-div-card{display:flex;
 flex-direction:column;
 text-align:center;
-background-color:white;
+background: #a0c0e1;
 }
 
 .home-div-card:hover{
