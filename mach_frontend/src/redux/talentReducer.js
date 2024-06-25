@@ -1,4 +1,4 @@
-//http://127.0.0.1:8000/mach/talent_finder
+// redux/talentReducer.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -26,7 +26,7 @@ const talentSlice = createSlice({
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.users = action.payload;
+        state.users = action.payload; // Update users array with fetched data
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.status = 'failed';
