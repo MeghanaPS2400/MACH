@@ -1,0 +1,199 @@
+.topcontainer {
+    height: 30vh; /* Adjust if you want different height */
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 20px;
+    width: 50vh; /* Adjust padding to create space on the left */
+  }
+  
+  .loginpage {
+    display: flex;
+    gap: 300px;
+    justify-content: center;
+  }
+  
+  .headinng {
+    position: absolute;
+    top: 100px; /* Adjust top position for the heading */
+    left: 50px; /* Adjust left position for the heading */
+    color: white;
+    animation: moveHeading 2s forwards;
+    font-family: "Poppins", sans-serif;
+
+    
+  }
+  .h1{
+    text-align:center;
+text-decoration:underline;
+margin-top:10px;
+margin-left: 17px;;
+  }
+  .description {
+    position: absolute;
+    top: 70px; /* Adjust top position for the description */
+    left: 20px; /* Adjust left position for the description */
+    width: 400px; /* Adjust width of the description */
+    color: white;
+    font-size: 18px;
+    text-align: justify;
+    animation: fadeIn 1s;
+    font-family: "Poppins", sans-serif;
+
+  }
+  
+  @keyframes moveHeading {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+body {
+        background-color: #122c42de;
+        margin: 0; /* Reset default margin */
+         /* Choose appropriate font */
+}
+
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .rowwwrapper {
+    display: flex;
+    justify-content: flex-end;
+    height: 600px;
+    padding-right: 90px;
+    padding-top: 80px;
+   
+  }
+  
+  .form-container {
+    width: 400px;
+  
+  }
+  
+  .shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   
+   
+  }
+  
+  .rounded {
+    border-radius: 8px;
+  }
+  
+  .bg-body {
+    background-color: #fff;
+    height: 450px;
+  }
+  
+  
+  
+  .float-end {
+    float: right;
+  }
+  
+  .btn {
+    background-color: #16354f;;
+    color: white;
+    border: none;
+    width: 150px; /* Reduced width */
+    margin: 0 auto; /* Center align */
+    display: block;
+   margin-top: 30px;
+   border-radius: 5px;;
+  }
+  
+  
+  .form-label {
+    display: flex;
+    margin-left: 40px;
+    font-weight: bold;
+    color: #0e2234d3;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    width: 300px; /* Reduced width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #0E2234;;
+    border-radius: 4px;
+    margin-left: 40px; /* Center align */
+    margin-right: auto; /* Center align */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color:#0a2f4f;;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+  }
+  
+  .btn:hover {
+    background-color: #065090;;
+  }
+  
+  .float-end {
+    display: block;
+    text-align: right;
+    color: #0E2234;
+    text-decoration: none;
+    margin-right: 5px;
+  }
+  
+  .float-end:hover {
+    text-decoration: underline;
+  }
+  
+.mb-4 {
+ padding-top: 30px;;
+ text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+  
+  .mb-3 {
+    margin-top: 2rem;
+   
+  }
+  
+  .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .my-3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 10px;
+  }
+  @media (max-width: 768px) {
+    .topcontainer {
+      flex-direction: column; /* Stack items vertically on smaller screens */
+      align-items: center; /* Center align items */
+      padding: 10px;
+    }
+  
+    .loginpage {
+      flex-direction: column; /* Stack items vertically on smaller screens */
+      gap: 2rem; /* Adjust gap between elements */
+      padding: 1rem; /* Adjust padding for spacing */
+    }
+  
+    .form-container {
+      max-width: 90%; /* Adjust max-width for smaller screens */
+      margin: 0 auto; /* Center align */
+      margin-top: 20px;
+    }
+  }
+  

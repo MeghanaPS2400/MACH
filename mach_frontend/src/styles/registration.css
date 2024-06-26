@@ -1,0 +1,64 @@
+.registerpage{
+    left:70%;
+}
+
+
+.form-label-reg{
+    display: flex;
+    margin-left:40px; /* Center the label text horizontally */
+    font-weight: bold;
+    color: #0e2234d3;;
+    font-size: medium;
+    
+}
+.mb3{
+    margin-top: 1rem;
+}
+.form-controll{
+    width: 300px; /* Reduced width */
+    padding: 10px;
+    border: 1px solid #0E2234;;
+    border-radius: 4px;
+    margin-left: 40px; /* Center align */
+    margin-right: auto; /* Center align */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    height:12px;
+}
+
+.bg-bodyy{
+    height: 500px;
+    background-color: #fff;
+    left:70%;
+  
+
+}
+.rowrapper {
+    display: flex;
+    justify-content: center;
+    height: 600px;
+   
+    padding-top: 60px;
+      
+  }
+.form-check-label,.form-check-input{
+    margin-left: 5px;
+    margin-top: 2px;
+}
+.form-check-input:enabled{
+    background-color: blue;
+}
+@media (max-width: 576px) {
+    .bg-bodyy {
+      width: 90%; /* Reduce width for smaller screens */
+      margin: 0 auto; /* Center align */
+    }
+  
+    .form-controll {
+      width: 100%; /* Full width */
+    }
+  
+    .rowrapper {
+      padding-right: 20px;
+      padding-top: 20px;
+    }
+  }
