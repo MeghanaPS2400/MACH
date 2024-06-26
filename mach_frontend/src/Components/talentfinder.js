@@ -5,6 +5,8 @@ import FilterSidebar from '../others/sidebar';
 import loading from "../assets/loading.gif";
 import '../styles/sidebar.css'; 
 import '../styles/TalentFinder.css';
+import "../styles/table.css";
+import Navbar from '../others/Navbar';
 
 const TalentFinder = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const TalentFinder = () => {
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
+
   };
 
   if (status === 'loading') {
@@ -83,7 +86,9 @@ const TalentFinder = () => {
   ];
 
   return (
+    
     <div className="talent-finder">
+      <Navbar/>
       <h1>Talent Finder</h1>
       <button className="filter-toggle" onMouseOver={toggleSidebar}>
         {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
@@ -98,7 +103,7 @@ const TalentFinder = () => {
       />
 
       <table className="user-table">
-        <thead>
+        <thead className="table-header">
           <tr>
             <th>Name</th>
             <th>Designation</th>
@@ -106,9 +111,9 @@ const TalentFinder = () => {
             <th>Skills</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-rows">
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr  key={user.id}>
               <td>{user.name}</td>
               <td>{user.designation}</td>
               <td>{user.lead}</td>

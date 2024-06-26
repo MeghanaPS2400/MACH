@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import Modal from '../others/modal';
 import '../styles/sidebar.css';
 
-const FilterSidebar = ({ isVisible, filters, onApplyFilters, toggleSidebar,setSelectedFilters,selectedFilters }) => {
+const FilterSidebar = ({ isVisible, filters, onApplyFilters, toggleSidebar, setSelectedFilters, selectedFilters }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentFilter, setCurrentFilter] = useState(null);
-  
+  const [selectedOption, setSelectedOption] = useState(null); // State to track selected option
 
   const sidebarClass = isVisible ? 'sidebar visible' : 'sidebar';
-  
 
   const handleFilterChange = (filterName, filterValue) => {
     setSelectedFilters((prevFilters) => ({
@@ -51,18 +50,28 @@ const FilterSidebar = ({ isVisible, filters, onApplyFilters, toggleSidebar,setSe
     return items;
   }, []);
 
+  const handleOptionClick = (filter, option) => {
+    setSelectedOption(option); // Set the selected option
+    handleFilterButtonClick(filter); // Open the modal or perform other actions
+  };
+
   return (
-    <div className={sidebarClass} onMouseLeave={toggleSidebar}>
+    <div className={sidebarClass} onMouseLeave={() => { toggleSidebar(); setModalVisible(false) }}>
       {filters.map((filter, index) => (
         <div key={index} className="filter-option">
-          <button onClick={() => handleFilterButtonClick(filter)}>{filter.label}</button>
+          <button
+            className={`sidebar-filter-options ${selectedOption === filter.label ? 'selected' : ''}`} // Apply 'selected' class if this option is selected
+            onClick={() => handleOptionClick(filter, filter.label)} // Pass the filter and label as parameters
+          >
+            {filter.label}
+          </button>
         </div>
       ))}
-      <div className="sidebar-buttons"  onMouseLeave={() => setModalVisible(false)}>
+      <div className="sidebar-buttons" onMouseLeave={() => setModalVisible(false)}>
         <button onClick={() => onApplyFilters(selectedFilters)}>Apply Filters</button>
         <button onClick={handleClearAllFilters}>Clear All</button>
       </div>
-      <div className="selected-filters-wrapper-div">Selected Filters:</div><br/>
+      <div className="selected-filters-wrapper-div">Selected Filters:</div><br />
       <div className="selected-filters">
         {selectedFilterItems.length > 0 && (
           <div className="selected-filters-wrapper">
