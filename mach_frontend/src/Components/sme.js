@@ -120,9 +120,8 @@ const Sme = () => {
   const uniqueEmployeeCount = [...new Set(userSkills.map(item => item.name))].length;
  
   const FilteredCount = ({ count }) => (
-    <div className="count-box">
-      <h3>Number of Employees:</h3>
-      <p>{count}</p>
+    <div className="filteredCount">
+      <h3>Number of Employees: {count}</h3>
     </div>
   );
  

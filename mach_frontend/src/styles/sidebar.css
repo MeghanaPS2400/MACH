@@ -1,4 +1,3 @@
-/* styles/sidebar.css */
 
 .sidebar {
   position: fixed;
@@ -28,7 +27,12 @@
 
 .sidebar-buttons button{background-color:#00bac7;
 color:white;
-font-weight:600;}
+font-weight:600;
+padding:10px;
+border:none;
+width:110px;
+border-radius:3px;
+}
 
 .sidebar-buttons button:hover{
   background-color:#3a9ea5;
@@ -95,7 +99,7 @@ border:none;
   border:none;
   text-align:start;
   cursor:pointer;
-  
+  padding:5px;
   transition:transform 0.3s ease;
 }
 
@@ -104,6 +108,7 @@ border:none;
   background-color:#00bac71f;
   color:#00bac7;
   transform:translateX(10px);
+  border-radius:3px;
  
 }
 
@@ -111,5 +116,3 @@ border:none;
   background-color:#00bac71f;
   color:#00bac7;
 }
-
-

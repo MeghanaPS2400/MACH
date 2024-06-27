@@ -50,6 +50,9 @@ function Navbar() {
             <li>
               <Link to="/Components/employeeskill">Employee Skill</Link>
             </li>
+            <li>
+              <Link to="/Login">Logout</Link>
+            </li>
           </ul>
         </nav>
       </header>

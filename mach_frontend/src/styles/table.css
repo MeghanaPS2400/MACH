@@ -12,7 +12,7 @@
 .user-table{width:95%;
 box-shadow:0 0 2px 2px #0E2234;
 background:white;
-border-radius:30px;
+border-radius:15px;
 padding:30px;
 margin-left:2.5%;}
 
@@ -21,4 +21,19 @@ margin-left:2.5%;}
 .screen-title{font-size:20px;
     text-transform:uppercase;
     margin:8px;
+    text-decoration:none;
+    text-align:left;
+    color: black;
+}
+
+.filteredCount{
+    margin-left:74.5%;
+    margin-bottom:12px;
+    text-align:right;
+    width:260px;
+    padding:8px;
+    color:white;
+    background-color:#0e2234fd;
+    border-radius:4px;
+
 }

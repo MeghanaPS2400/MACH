@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Navbar from '../others/Navbar';
  
 import '../styles/sidebar.css';
 import FilterSidebar from '../others/sidebar';
@@ -8,22 +9,22 @@ import loadingGif from '../assets/loading.gif';
 import '../styles/replacement.css';
  
 const FilteredCount = ({ count }) => (
-  <div className='filtered-count'>
+  <div className='filteredCount'>
     <h3>Number of People: {count}</h3>
   </div>
 );
  
 const SkillTable = ({ skills, overallrating }) => (
-  <div className="skill-table scrollable">
+  <div className="user-skill">
     <h2>Employee Skills</h2>
     <table>
-      <thead>
+      <thead  className="table-header">
         <tr>
           <th>Skill</th>
           <th>Rating</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="table-rows-data">
         {Object.entries(skills)
           .filter(([skill, rating]) => rating > 0)
           .map(([skill, rating]) => (
@@ -35,8 +36,12 @@ const SkillTable = ({ skills, overallrating }) => (
        
       </tbody>
     </table>
-    <div className="fixed-total"> 
-         <h3>Total rating: {overallrating}</h3>
+    <div className="fixed-total">
+      <table >
+        <tbody>
+         <td colSpan={2}>Total rating: {overallrating}</td>
+         </tbody>
+      </table>
     </div>
   </div>
 );
@@ -44,7 +49,7 @@ const SkillTable = ({ skills, overallrating }) => (
 function ReplacementFinder() {
   const dispatch = useDispatch();
   const {
-    
+   
     overallrating,
     filteredMatches,
     skillAvgRatings,
@@ -59,8 +64,8 @@ function ReplacementFinder() {
     skills: [],
     account:[],
     rating:[]
-    
-  
+   
+ 
   });
  
   const [sortBy, setSortBy] = useState(null);
@@ -72,8 +77,8 @@ function ReplacementFinder() {
  
     return [...filteredMatches].sort((a, b) => {
       switch (sortBy) {
-        case 'skills_count':
-          return sortDirection === 'asc' ? a.skills_count - b.skills_count : b.skills_count - a.skills_count;
+        case 'matching_skills':
+          return sortDirection === 'asc' ? a.matching_skills - b.matching_skills : b.matching_skills - a.matching_skills;
         case 'average_rating':
           return sortDirection === 'asc' ? a.average_rating - b.average_rating : b.average_rating - a.average_rating;
         default:
@@ -117,7 +122,7 @@ function ReplacementFinder() {
  
   if (status === 'loading') {
     return (
-      <div className="loading">
+      <div className="Talentloading">
         <img src={loadingGif} style={{ width: '80px', height: '80px' }} alt="Loading" />
       </div>
     );
@@ -163,12 +168,13 @@ function ReplacementFinder() {
         { value: '1', label: 'Beginer'},
       ]
     }
-    
+   
     // Add other filters as needed
   ];
  
   return (
     <div className="replacement-finder">
+      <Navbar/>
       <h2>REPLACEMENT FINDER</h2>
       <button className="filter-toggle" onMouseOver={toggleSidebar}>
         {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
@@ -184,22 +190,22 @@ function ReplacementFinder() {
  
       <FilteredCount count={sortedFilteredMatches.length} />
  
-      <div className="high">
+     
         <div className="tables">
          <SkillTable skills={skillAvgRatings} overallrating={overallrating} />
-          <div className="employee-table scrollable">
+          <div className="user-table">
             <h2>Potential Replacements</h2>
             <table>
-              <thead>
+              <thead className="table-header">
                 <tr>
                   <th>Name</th>
                   <th>Designation</th>
                   <th>Account</th>
-                  <th onClick={() => handleSort('skills_count')}>Matching skills</th>
-                  <th onClick={() => handleSort('average_rating')}>Average Rating</th>
+                  <th className='sort' onClick={() => handleSort('matching_skills')}>Matching skills</th>
+                  <th className='sort' onClick={() => handleSort('average_rating')}>Average Rating</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="table-rows-data">
                 {sortedFilteredMatches.length > 0 ? (
                   sortedFilteredMatches.map((item) => (
                     <tr key={item.user_id}>
@@ -219,9 +225,9 @@ function ReplacementFinder() {
             </table>
            
           </div>
-          
+         
         </div>
-      </div>
+     
     </div>
   );
 }

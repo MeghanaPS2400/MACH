@@ -11,6 +11,7 @@
     display: flex;
     gap: 300px;
     justify-content: center;
+    background-color: #0E2234;
   }
   
   .headinng {
@@ -52,11 +53,7 @@ margin-left: 17px;;
       transform: translateY(0);
     }
   }
-body {
-        background-color: #122c42de;
-        margin: 0; /* Reset default margin */
-         /* Choose appropriate font */
-}
+
 
   
   @keyframes fadeIn {
