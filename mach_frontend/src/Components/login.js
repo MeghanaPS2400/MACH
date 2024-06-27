@@ -29,6 +29,7 @@ function Login() {
       password,
     };
     login(loginData).unwrap().then((result) => {
+      localStorage.setItem('authToken', result.access_token);
       dispatch(loginSuccess({ token: result.access_token, user: email }));
       navigate("/main");
     }).catch((err) => {

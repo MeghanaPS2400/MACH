@@ -2,11 +2,12 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import AxiosInstance from './axiosInstance';
 
 export const fetchData = createAsyncThunk(
   'users/fetchUsers',
   async (queryParams = '') => {
-    const response = await axios.get(`http://127.0.0.1:8000/mach/talent_finder/${queryParams}`);
+    const response = await AxiosInstance.get(`http://127.0.0.1:8000/mach/talent_finder/${queryParams}`);
     return response.data;
   }
 );

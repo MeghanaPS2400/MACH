@@ -1,6 +1,6 @@
 .registerpage{
     left:70%;
-    background-color: #0E2234
+    background-image: linear-gradient(to right top, rgb(232, 173, 180), rgb(239, 210, 213), rgba(149, 190, 237, 0.89))
 }
 
 
@@ -41,12 +41,17 @@
     padding-top: 60px;
       
   }
-.form-check-label,.form-check-input{
-    margin-left: 5px;
-    margin-top: 2px;
+ 
+.form-check{
+    margin-left: 50px;
+    margin-top: 20px;
 }
-.form-check-input:enabled{
-    background-color: blue;
+.form-check-label{
+ margin-left: 4px;
+}
+.form-check-input{
+  size: 15px;;
+  
 }
 @media (max-width: 576px) {
     .bg-bodyy {

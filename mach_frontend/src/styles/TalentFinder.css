@@ -4,7 +4,7 @@
     flex-direction: column;
     padding: 20px;
     font-family: Arial, sans-serif;
-    background:white;
+    background-image: linear-gradient(to right top, rgba(237, 211, 214, 0.162), rgba(226, 188, 192, 0.29), rgba(199, 215, 233, 0.4))
   }
   
   .Talentfilters {

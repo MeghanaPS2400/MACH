@@ -11,14 +11,15 @@
     display: flex;
     gap: 300px;
     justify-content: center;
-    background-color: #0E2234;
+    background:linear-gradient(to top right, #e8adb4,#efd2d5,rgb(243, 209, 209,0)); 
+    background-image: linear-gradient(to right top, rgb(232, 173, 180), rgb(239, 210, 213), rgba(149, 190, 237, 0.89))
   }
   
   .headinng {
     position: absolute;
     top: 100px; /* Adjust top position for the heading */
     left: 50px; /* Adjust left position for the heading */
-    color: white;
+    color:#0E2234;
     animation: moveHeading 2s forwards;
     font-family: "Poppins", sans-serif;
 
@@ -35,7 +36,7 @@ margin-left: 17px;;
     top: 70px; /* Adjust top position for the description */
     left: 20px; /* Adjust left position for the description */
     width: 400px; /* Adjust width of the description */
-    color: white;
+    color:#0a2f4f;
     font-size: 18px;
     text-align: justify;
     animation: fadeIn 1s;
