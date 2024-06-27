@@ -1,113 +1,101 @@
-
 .talent-finder {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-image: linear-gradient(to right top, rgba(237, 211, 214, 0.162), rgba(226, 188, 192, 0.29), rgba(199, 215, 233, 0.4))
-  }
-  
-  .Talentfilters {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    background-color: #1a1919;
-    
-  }
-  
-  .filter {
-    flex: 1;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .filter label {
-    display: block;
-    margin-bottom: 5px;
-    color:white;
-  }
-  
-  .filter .react-select-container {
-    width: 100%;
-  }
-  
-
-  .clear-button {
-    margin-top:10px;
-    margin-left:8px;
-    padding: 10px 15px;
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    cursor: pointer;
-    height:40px;
-  }
-
-  
-  .clear-button:hover {
-    background-color: #e60000;
-  }
-  
-  .content {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
-  
-  .table-container {
-    flex: 1;
-    overflow-x: auto;
-    overflow-y:scroll;
-    height:410px;
-    margin-right: 20px;
-
-  }
-  
-  .results-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .results-table th,
-  .results-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .results-table th {
-    background-color: #393838;
-    color:white;
-    font-weight: bold;
-  }
-  
-.Talentloading img{width:70px;
-height:70px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-image: linear-gradient(to right top, rgba(237, 211, 214, 0.162), rgba(226, 188, 192, 0.29), rgba(199, 215, 233, 0.4))
 }
 
-.Talentloading{display:flex;
-  justify-content:center;
-  align-items:center;
-height:500px;}
-
-.chart-container {
-  width: 40%;
-  overflow-x: auto;
-  margin-top: 20px;
+.Talentfilters {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: #1a1919;
 }
 
-.chart-scroll {
-  width: 1200px; /* Increase this value as needed */
+.filter {
+  flex: 1;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-.chart-container {
+.filter label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.filter .react-select-container {
   width: 100%;
-  height:500px;
-  overflow-x: auto;
+}
+
+.clear-button {
+  margin-top: 10px;
+  margin-left: 8px;
+  padding: 10px 15px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+}
+
+.clear-button:hover {
+  background-color: #e60000;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 20px;
 }
 
+.table-container {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: scroll;
+  height: 410px;
+  margin-right: 20px;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.results-table th,
+.results-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.results-table th {
+  background-color: #393838;
+  color: white;
+  font-weight: bold;
+}
+
+.Talentloading img {
+  width: 70px;
+  height: 70px;
+}
+
+.Talentloading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.chart-container {
+  width: 80%;
+  height: 500px;
+  overflow-x: auto;
+  margin-top: 20px;
+  margin-left:13%;}
+
 .chart-scroll {
-  width: 1200px; /* Increase this value as needed */
+  width: 900px; /* Increase this value as needed */
 }
 
 .drill-down-info {
@@ -116,13 +104,46 @@ height:500px;}
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f9f9f9;
+  width:300px;
+  position:absolute;
+  top:30px;
+  left:38%;
 }
 
 .drill-down-info h2 {
   margin-top: 0;
+  font-size:15px;
 }
 
 .drill-down-info p {
   margin: 5px 0;
+  font-size:13px;
 }
 
+.view-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.toggle-icon {
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #666;
+}
+
+.toggle-icon.active {
+  color: #000;
+}
+
+.filter-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 1000;
+}

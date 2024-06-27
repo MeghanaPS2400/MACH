@@ -7,10 +7,12 @@ import '../styles/sidebar.css';
 import '../styles/TalentFinder.css';
 import "../styles/table.css";
 import Navbar from '../others/Navbar';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Bar, Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartBar, faTable } from '@fortawesome/free-solid-svg-icons';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
 
 const TalentFinder = () => {
   const dispatch = useDispatch();
@@ -21,11 +23,14 @@ const TalentFinder = () => {
     designation: [],
     lead: [],
     skills: [],
-    account:[],
-    manager_name:[]
+    account: [],
+    manager_name: []
   });
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [topRatedPerson, setTopRatedPerson] = useState(null);
+  const [view, setView] = useState('graph'); // 'graph' or 'table'
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -40,7 +45,7 @@ const TalentFinder = () => {
       .join('&');
 
     dispatch(fetchData(`?${queryParams}`));
-    setSidebarVisible(false); 
+    setSidebarVisible(false);
   };
 
   const toggleSidebar = () => {
@@ -59,6 +64,15 @@ const TalentFinder = () => {
     }
   };
 
+  const handleRowClick = (user) => {
+    setSelectedUser(user);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   if (status === 'loading') {
     return <div className="Talentloading"><img src={loading} alt="Loading" /></div>;
   }
@@ -69,7 +83,7 @@ const TalentFinder = () => {
 
   const filters = [
     {
-      name: 'name', 
+      name: 'name',
       label: 'Name',
       options: [...new Set(users.map(user => user.name))].map(name => ({ value: name, label: name }))
     },
@@ -79,17 +93,17 @@ const TalentFinder = () => {
       options: [...new Set(users.map(user => user.designation))].map(designation => ({ value: designation, label: designation }))
     },
     {
-      name: 'lead', 
+      name: 'lead',
       label: 'Lead',
       options: [...new Set(users.map(user => user.lead))].map(lead => ({ value: lead, label: lead }))
     },
     {
-      name: 'account', 
+      name: 'account',
       label: 'Account',
       options: [...new Set(users.map(user => user.account))].map(account => ({ value: account, label: account }))
     },
     {
-      name: 'manager_name', 
+      name: 'manager_name',
       label: 'Manager',
       options: [...new Set(users.map(user => user.manager_name))].map(manager_name => ({ value: manager_name, label: manager_name }))
     },
@@ -108,15 +122,40 @@ const TalentFinder = () => {
     return acc;
   }, {});
 
+  const averageRatings = users.reduce((acc, user) => {
+    Object.keys(user.skills).forEach(skill => {
+      if (!acc[skill]) {
+        acc[skill] = { total: 0, count: 0 };
+      }
+      acc[skill].total += user.skills[skill];
+      acc[skill].count += 1;
+    });
+    return acc;
+  }, {});
+
+  const averageData = Object.keys(averageRatings).map(skill => {
+    return (averageRatings[skill].total / averageRatings[skill].count).toFixed(2);
+  });
+
   const data = {
     labels: Object.keys(skillCounts),
     datasets: [
       {
+        type: 'bar',
         label: 'Skill Count',
         data: Object.values(skillCounts),
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
+      },
+      {
+        type: 'line',
+        label: 'Average Rating',
+        data: averageData,
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        fill: false
       }
     ]
   };
@@ -129,16 +168,46 @@ const TalentFinder = () => {
       },
       title: {
         display: true,
-        text: 'Skills Count'
+        text: 'Skills Count and Average Rating'
       }
     },
-    onClick: (event, elements) => handleBarClick(elements)
+    onClick: (event, elements) => handleBarClick(elements),
+    scales: {
+      y: {
+        ticks: {
+          stepSize: 1000 // Adjust this value to change the y-axis scale increments
+        },
+        grid: {
+          display: false // Remove the grid
+        }
+      },
+      x: {
+        grid: {
+          display: false // Remove the grid
+        }
+      }
+    }
   };
+
+  // Sort users based on average rating
+  const sortedUsers = [...users].sort((a, b) => b.average_rating - a.average_rating);
 
   return (
     <div className="talent-finder">
-      <Navbar/>
+      <Navbar />
       <h1 className='screen-title'>Talent Finder</h1>
+      <div className="view-toggle">
+        <FontAwesomeIcon
+          icon={faChartBar}
+          className={`toggle-icon ${view === 'graph' ? 'active' : ''}`}
+          onClick={() => setView('graph')}
+        />
+        <FontAwesomeIcon
+          icon={faTable}
+          className={`toggle-icon ${view === 'table' ? 'active' : ''}`}
+          onClick={() => setView('table')}
+        />
+      </div>
       <button className="filter-toggle" onMouseOver={toggleSidebar}>
         {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
       </button>
@@ -151,7 +220,7 @@ const TalentFinder = () => {
         selectedFilters={selectedFilters}
       />
 
-{selectedSkill && topRatedPerson && (
+      {selectedSkill && topRatedPerson && (
         <div className="drill-down-info">
           <h2>Top Rated Person for {selectedSkill}</h2>
           <p>Name: {topRatedPerson.name}</p>
@@ -161,39 +230,63 @@ const TalentFinder = () => {
         </div>
       )}
 
-<div className="chart-container">
-        <div className="chart-scroll">
-          <Bar data={data} options={options} />
+      {view === 'graph' && (
+        <div className="chart-container">
+          <div className="chart-scroll">
+            <Bar data={data} options={options} />
+          </div>
         </div>
-      </div>
+      )}
 
-      <table className="user-table">
-        <thead className="table-header">
-          <tr>
-            <th>Name</th>
-            <th>Designation</th>
-            <th>Lead</th>
-            <th>Average Rating</th>
-          </tr>
-        </thead>
-        <tbody className="table-rows">
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.designation}</td>
-              <td>{user.lead}</td>
-              <td>{user.average_rating.toFixed(2)}</td>
-              {/* <td>
-                {Object.entries(user.skills).map(([skill, rating]) => (
-                  <div key={skill}>{`${skill} (${rating})`}</div>
+      {view === 'table' && (
+        <div>
+          <table className="user-table">
+            <thead className="table-header">
+              <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Lead</th>
+                <th>Average Rating</th>
+              </tr>
+            </thead>
+            <tbody className="table-rows">
+              {sortedUsers.map((user) => (
+                <tr key={user.id} onClick={() => handleRowClick(user)}>
+                  <td>{user.name}</td>
+                  <td>{user.designation}</td>
+                  <td>{user.lead}</td>
+                  <td>{user.average_rating.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {isModalOpen && selectedUser && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <span className="close" onClick={handleCloseModal}>&times;</span>
+            <h2>Skills and Ratings for {selectedUser.name}</h2>
+            <table className="user-skills-table">
+              <thead>
+                <tr>
+                  <th>Skill</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(selectedUser.skills).map(skill => (
+                  <tr key={skill}>
+                    <td>{skill}</td>
+                    <td>{selectedUser.skills[skill]}</td>
+                  </tr>
                 ))}
-              </td> */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-   
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
