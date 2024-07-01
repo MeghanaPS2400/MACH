@@ -23,9 +23,10 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  padding: 20px;
 }
 
-.sidebar-buttons button{background-color:#00bac7;
+.sidebar-buttons button{background-color:orange;
 color:white;
 font-weight:600;
 padding:10px;

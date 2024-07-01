@@ -8,7 +8,8 @@ import comparisionImage from "../assets/comparisionAnalysis.png";
 import skillImage from "../assets/employeeSkill.png";
 import logo from "../assets/logo.png";
 import backgroundImage from "../assets/wallpaper1.1.jpg"; 
-
+import Layout from "../others/Layout";
+// import logout from "../assets/logout.png"
 function Main() {
 
   const containerStyle = {
@@ -16,7 +17,7 @@ function Main() {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'contain',
     backgroundPosition: 'center',
-    height: '500px', 
+    height: '545px', 
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -36,31 +37,7 @@ function Main() {
 
   return (
     <>
-    <header>
-      <img src={logo} alt="logo" />
-      <nav>
-        <ul className="menu">
-          <li>
-            <Link to="/Components/executiesummary">Executive Summary</Link>
-          </li>
-          <li>
-            <Link to="/Components/talentfinder">Talent Finder</Link>
-          </li>
-          <li>
-            <Link to="/Components/sme">SME</Link>
-          </li>
-          <li>
-            <Link to="/Components/replacement">Replacement Finder</Link>
-          </li>
-          <li>
-            <Link to="/Components/comparisionanalysis">Comparision Analysis</Link>
-          </li>
-          <li>
-            <Link to="/Components/employeeskill">Employee Skill</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
+   <Layout>
       <div style={containerStyle}>
         <div style={overlayStyle}>
         <Link to="/Components/replacement" style={{ textDecoration: 'none' }}><img id="replacement" class="icons" src={replacementImage} alt="Icon" title="Replacement Finder"/>
@@ -73,7 +50,7 @@ function Main() {
              <Link to="/Components/sme" style={{ textDecoration: 'none' }}><img id="sme" class="icons" src={smeImage} alt="Icon" title="SME"/></Link>
         </div>
       </div>
-      
+      </Layout>
     </>
   );
 }

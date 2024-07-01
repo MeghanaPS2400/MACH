@@ -21,7 +21,16 @@ const FilterSidebar = ({ isVisible, filters, onApplyFilters, toggleSidebar, setS
       name: [],
       designation: [],
       lead: [],
-      skills: []
+      skills: [],
+      account: [],
+      manager_name: [],
+      validated: [],
+      rating: ['4', '5'],
+      tenure: [],
+      iteration: [],
+   
+      serviceline_name:[],
+      functions:[]
       // Add other filters as needed
     });
     onApplyFilters(selectedFilters);

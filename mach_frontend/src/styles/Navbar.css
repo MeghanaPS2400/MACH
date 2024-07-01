@@ -57,4 +57,12 @@
     padding:2px;
   }
   
+  .logout-class{
+    border: 1px solid rgba(0,0,0,0.4);
   
+    height: 25px;
+    width: 70px;
+    text-align: center;
+    border-radius: 3px;
+
+  }
