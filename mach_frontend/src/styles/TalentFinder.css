@@ -141,7 +141,8 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: #fff;
+  background-color:black;
+  color:white;
   border: none;
   font-size: 18px;
   cursor: pointer;

@@ -24,13 +24,15 @@ const TalentFinder = () => {
     lead: [],
     skills: [],
     account: [],
-    manager_name: []
+    manager_name: [],
+    capabilities:[]
   });
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [topRatedPerson, setTopRatedPerson] = useState(null);
   const [view, setView] = useState('graph'); // 'graph' or 'table'
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedChartUser, setSelectedChartUser] = useState(null);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -61,12 +63,14 @@ const TalentFinder = () => {
         .filter(user => skill in user.skills)
         .sort((a, b) => b.skills[skill] - a.skills[skill])[0];
       setTopRatedPerson(topPerson);
+      setSelectedChartUser(null); // Clear selected user when chart is clicked
     }
   };
 
   const handleRowClick = (user) => {
     setSelectedUser(user);
     setModalOpen(true);
+    setSelectedChartUser(null); // Clear selected user when row is clicked
   };
 
   const handleCloseModal = () => {
@@ -106,6 +110,16 @@ const TalentFinder = () => {
       name: 'manager_name',
       label: 'Manager',
       options: [...new Set(users.map(user => user.manager_name))].map(manager_name => ({ value: manager_name, label: manager_name }))
+    },
+    {
+      name: 'capabilities',
+      label: 'capabilities',
+      options: [...new Set(users.map(user => user.capabilities))].map(capabilities => ({ value:capabilities, label: capabilities }))
+    },
+    {
+      name: 'function',
+      label: 'function',
+      options: [...new Set(users.map(user => user.function))].map(functions => ({ value:functions, label: functions }))
     },
     {
       name: 'skills',
@@ -208,7 +222,7 @@ const TalentFinder = () => {
           onClick={() => setView('table')}
         />
       </div>
-      <button className="filter-toggle" onMouseOver={toggleSidebar}>
+      <button className="filter-toggle" onClick={toggleSidebar}>
         {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
       </button>
       <FilterSidebar
@@ -220,22 +234,24 @@ const TalentFinder = () => {
         selectedFilters={selectedFilters}
       />
 
-      {selectedSkill && topRatedPerson && (
-        <div className="drill-down-info">
-          <h2>Top Rated Person for {selectedSkill}</h2>
-          <p>Name: {topRatedPerson.name}</p>
-          <p>Designation: {topRatedPerson.designation}</p>
-          <p>Lead: {topRatedPerson.lead}</p>
-          <p>Rating: {topRatedPerson.skills[selectedSkill]}</p>
-        </div>
-      )}
-
       {view === 'graph' && (
-        <div className="chart-container">
-          <div className="chart-scroll">
-            <Bar data={data} options={options} />
+        <>
+          {selectedSkill && topRatedPerson && (
+            <div className="drill-down-info">
+              <h2>Top Rated Person for {selectedSkill}</h2>
+              <p>Name: {topRatedPerson.name}</p>
+              <p>Designation: {topRatedPerson.designation}</p>
+              <p>Lead: {topRatedPerson.lead}</p>
+              <p>Rating: {topRatedPerson.skills[selectedSkill]}</p>
+            </div>
+          )}
+
+          <div className="chart-container">
+            <div className="chart-scroll">
+              <Bar data={data} options={options} />
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {view === 'table' && (
@@ -260,31 +276,31 @@ const TalentFinder = () => {
               ))}
             </tbody>
           </table>
-        </div>
-      )}
 
-      {isModalOpen && selectedUser && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <span className="close" onClick={handleCloseModal}>&times;</span>
-            <h2>Skills and Ratings for {selectedUser.name}</h2>
-            <table className="user-skills-table">
-              <thead>
-                <tr>
-                  <th>Skill</th>
-                  <th>Rating</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(selectedUser.skills).map(skill => (
-                  <tr key={skill}>
-                    <td>{skill}</td>
-                    <td>{selectedUser.skills[skill]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          {isModalOpen && selectedUser && (
+            <div className="modal-overlay drill-down-info">
+              <div className="modal">
+                <span className="close" onClick={handleCloseModal}>&times;</span>
+                <h2>Skills and Ratings for {selectedUser.name}</h2>
+                <table className="user-skills-table">
+                  <thead>
+                    <tr>
+                      <th>Skill</th>
+                      <th>Rating</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(selectedUser.skills).map(skill => (
+                      <tr key={skill}>
+                        <td>{skill}</td>
+                        <td>{selectedUser.skills[skill]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
