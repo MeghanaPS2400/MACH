@@ -23,9 +23,8 @@ function App() {
      
      
         <Routes>
-          
-{/*        
-        <Route path="/main" element={<Main />} /> */}
+              
+        <Route path="/main" element={<Main />} /> 
           <Route path="/" element={<Login />} />
          
 

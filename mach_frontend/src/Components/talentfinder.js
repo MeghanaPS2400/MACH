@@ -11,6 +11,15 @@ import { Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartBar, faTable } from '@fortawesome/free-solid-svg-icons';
+import Pagination from '../others/pagination';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Layout from '../others/Layout';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
 
@@ -33,6 +42,8 @@ const TalentFinder = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedChartUser, setSelectedChartUser] = useState(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(7);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -71,6 +82,18 @@ const TalentFinder = () => {
     setSelectedUser(user);
     setModalOpen(true);
     setSelectedChartUser(null); // Clear selected user when row is clicked
+
+
+  };
+
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   const handleCloseModal = () => {
@@ -206,9 +229,10 @@ const TalentFinder = () => {
   // Sort users based on average rating
   const sortedUsers = [...users].sort((a, b) => b.average_rating - a.average_rating);
 
+  const paginatedUserSkills = sortedUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   return (
     <div className="talent-finder">
-      <Navbar />
+    <Layout/>
       <h1 className='screen-title'>Talent Finder</h1>
       <div className="view-toggle">
         <FontAwesomeIcon
@@ -256,26 +280,39 @@ const TalentFinder = () => {
 
       {view === 'table' && (
         <div>
-          <table className="user-table">
-            <thead className="table-header">
-              <tr>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Lead</th>
-                <th>Average Rating</th>
-              </tr>
-            </thead>
-            <tbody className="table-rows">
-              {sortedUsers.map((user) => (
-                <tr key={user.id} onClick={() => handleRowClick(user)}>
-                  <td>{user.name}</td>
-                  <td>{user.designation}</td>
-                  <td>{user.lead}</td>
-                  <td>{user.average_rating.toFixed(2)}</td>
-                </tr>
+        <TableContainer component={Paper} sx={{ maxHeight: 320 }} className='table-container'>
+          <Table stickyHeader aria-label="sticky table" className='user-table'>
+            <TableHead className='table-header'>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Designation</TableCell>
+                <TableCell>Account</TableCell>
+                <TableCell>Skills Count</TableCell>
+                <TableCell>Average Rating</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {paginatedUserSkills.map((user) => (
+                <TableRow key={user.user_id} onClick={() => handleRowClick(user)}>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.designation}</TableCell>
+                  <TableCell>{user.account}</TableCell>
+                  <TableCell>{user.skills_count}</TableCell>
+                  <TableCell>{user.average_rating.toFixed(2)}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Pagination
+          rowsPerPageOptions={[7, 10, 25]}
+          component="div"
+          count={sortedUsers.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
 
           {isModalOpen && selectedUser && (
             <div className="modal-overlay drill-down-info">
