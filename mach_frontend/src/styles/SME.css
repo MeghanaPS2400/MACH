@@ -1,6 +1,8 @@
+
+
 h2 {
   text-align: center;
-  margin-bottom: 5px;
+ 
   
 }
 .sme-finder{
@@ -158,3 +160,69 @@ text-overflow: ellipsis;
 .data-table td p {
 margin: 0;
 }
+.scrollable-table {
+  max-height: 400px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+
+/* src/styles/SME.css */
+
+.sme-finder {
+  padding: 20px;
+}
+
+.screen-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-toggle {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 0 5px 5px 0;
+  z-index: 1000;
+}
+
+.table-div {
+  max-height: 400px; /* Set the max height for the table container */
+  overflow-y: auto; /* Add vertical scrollbar */
+  margin-top: 20px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header th {
+  background-color: cadetblue;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  color: azure;
+}
+
+.table-rows-data td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.count-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.count-box h3 {
+  margin: 0;
+}
+
