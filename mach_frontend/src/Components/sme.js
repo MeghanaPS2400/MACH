@@ -427,8 +427,9 @@ const Sme = () => {
   const paginatedUserSkills = filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
+    <Layout>
     <div className="sme-finder">
-      <Layout>
+     
         <h4 className="screen-title">Subject Matter Expert</h4>
         <button className="filter-toggle" onClick={toggleSidebar}>
           {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
@@ -486,7 +487,7 @@ const Sme = () => {
           </Table>
         </TableContainer>
         <Pagination
-          rowsPerPageOptions={[7, 10, 25]}
+          rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={filteredUsers.length}
           rowsPerPage={rowsPerPage}
@@ -494,8 +495,9 @@ const Sme = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Layout>
+     
     </div>
+    </Layout>
   );
 };
 
