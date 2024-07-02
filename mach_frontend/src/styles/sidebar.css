@@ -5,8 +5,8 @@
   top: 0;
   bottom: 0;
   width: 250px; /* Adjust width as needed */
-  background: #0E2234;
-  color:#9ea9b4;
+  background: linear-gradient(to right, #7c5d89 0%, #b28cc3 50%, #cda0a6 100%);
+  color:white;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
@@ -26,26 +26,28 @@
   padding: 20px;
 }
 
-.sidebar-buttons button{background-color:orange;
+.sidebar-buttons button{background-color:#220047;
 color:white;
-font-weight:600;
+font-weight:400;
 padding:10px;
 border:none;
 width:110px;
 border-radius:3px;
+margin:3px;
 }
 
 .sidebar-buttons button:hover{
-  background-color:#3a9ea5;
+  background-color:#d85e6ccb;
 }
-.filter-toggle {
+.filter-togglebar {
   position: fixed;
   top: 45%;
   left:0; 
   cursor: pointer;
   z-index: 1000;
-  background-color:rgba(0,0,0,0.5);
-  color:white;
+  background: none;
+  border:none;
+  color:black;
   border-radius: 2px;
   width:30px;
   height:60px;
@@ -95,7 +97,7 @@ border:none;
   width: 100%;
   margin-bottom: 10px;
   margin-left: 4px;
-  color:#9ea9b4;
+  color:white;
   background:none;
   border:none;
   text-align:start;
@@ -106,14 +108,14 @@ border:none;
 
 .sidebar-filter-options:hover{
   
-  background-color:#00bac71f;
-  color:#00bac7;
+  background-color:#d85e6ccb;
+  color:white;
   transform:translateX(10px);
   border-radius:3px;
  
 }
 
 .sidebar-filter-options.selected{
-  background-color:#00bac71f;
-  color:#00bac7;
+  background-color:#d85e6ccb;
+  color:white;
 }
