@@ -186,9 +186,9 @@ const Sme = () => {
   ];
  
   return (
-    <>
-      <Layout />
-      <div className="sme-finder">
+    <Layout>
+    <div className="sme-finder">
+     
         <h4 className="screen-title">Subject Matter Expert</h4>
         <button className="filter-togglebar" onClick={toggleSidebar}>
           {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
@@ -244,6 +244,7 @@ const Sme = () => {
           selectedFilters={selectedFilters}
         />
         <Pagination
+          rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={userSkills.length}
           rowsPerPage={rowsPerPage}
@@ -251,8 +252,9 @@ const Sme = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </div>
-    </>
+     
+    </div>
+    </Layout>
   );
 };
  

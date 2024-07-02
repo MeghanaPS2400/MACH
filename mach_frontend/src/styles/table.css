@@ -1,105 +1,109 @@
-/*
- 
+
+
+.table-header{
+    color: white;
+    background-color:#00bac7;
+    padding:10px;
+    height:50px;
+    font-size:14px;
+    margin:0px;
+
+}
+
+
 .user-table{
- 
-    background:white;
-   
-    table-layout: fixed;
-   
-    border-radius:15px;
-    padding:30px;
-    margin-left:2.5%;} */
-   
- 
- 
-    .screen-title{font-size:20px;
-      text-transform:uppercase;
-      margin:8px;
+
+background:white;
+
+table-layout: fixed;
+
+border-radius:15px;
+padding:30px;
+margin-left:2.5%;}
+
+.table-rows-data{height:40px;}
+
+.screen-title{font-size:20px;
+    text-transform:uppercase;
+    margin:8px;
+}
+
+.sme-table-head {
+  background-color: cadetblue;
+}
+
+
+/* SME.css */
+
+.table-div {
+    max-height: 400px; /* Adjust max-height as needed */
+    overflow-y: auto; /* Add scrollbar when content exceeds max-height */
   }
    
   .sme-table-head {
     background-color: cadetblue;
   }
-   
-   
-   
-   
-  /*  
-    .user-table {
-      width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-    }
-     */
-   
-   
-   
-    .table-header {
-      background-color: cadetblue; /* Set background color for table header */
-      color: white; /* Text color for table header */
-      padding: 10px;
-      font-size: 14px;
-      text-align: left;
-    }
-   
-    .table-rows-data td {
-      padding: 10px;
-     
-      border-bottom: 1px solid #ddd; /* Add bottom border for table rows */
-      white-space: nowrap; /* Prevent text wrapping in table cells */
-      overflow: hidden; /* Hide overflow content */
-      text-overflow: ellipsis;
-    /* Show ellipsis (...) for overflow text */
-    }
-   
-   
-    .sme-finder {
-      padding: 20px;
-    }
-   
-    .filter-toggle {
-      position: fixed;
-      top: 50px;
-      right: 20px;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 1000;
-      font-size: 20px;
-      color: #333;
-    }
-   
-    .table-container {
-      max-height: 200px;
-      width: 100%;
-      overflow: auto;
-    }
-   
-    .user-table {
-      width: 100%;
-    }
-   
-    .table-header {
-      background-color: cadetblue;
-    }
-   
-    .table-row-data:hover {
-      background-color: lightgray;
-    }
-   
-    .count-box {
-      margin-top: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      margin-left: 950px;
-      border-radius: 5px;
-      background-color: #f0f0f0;
-    }
-   
-    .screen-title {
-      margin-top: 0;
-    }
-   
-    .table-rows-data{
-      margin-bottom: 10px;
-    }
+  
+  .table-header {
+    background-color: cadetblue; /* Set background color for table header */
+    color: white; /* Text color for table header */
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  .table-rows-data td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Add bottom border for table rows */
+    white-space: nowrap; /* Prevent text wrapping in table cells */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+  }
+  
+
+  .sme-finder {
+    padding: 20px;
+  }
+  
+  .filter-toggle {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .table-container {
+    max-height: 500px; 
+    width: 100%; 
+    overflow: auto; 
+  }
+  
+  .user-table {
+    width: 100%;
+  }
+  
+  .table-header {
+    background-color: cadetblue; 
+  }
+  
+  .table-row-data:hover {
+    background-color: lightgray;
+  }
+  
+  .count-box {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-left: 950px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+  }
+  
+  .screen-title {
+    margin-top: 0;
+  }
