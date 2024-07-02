@@ -1,10 +1,10 @@
 .topcontainer {
-    height: 30vh; /* Adjust if you want different height */
+    height: 30vh;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     padding-left: 20px;
-    width: 50vh; /* Adjust padding to create space on the left */
+    width: 50vh; 
   }
   
   .loginpage {
@@ -12,7 +12,9 @@
     gap: 300px;
     justify-content: center;
     background:linear-gradient(to top right, #e8adb4,#efd2d5,rgb(243, 209, 209,0)); 
-    background-image: linear-gradient(to right top, rgb(232, 173, 180), rgb(239, 210, 213), rgba(149, 190, 237, 0.89))
+    background: linear-gradient(to right top, rgb(232, 173, 180), rgb(239, 210, 213), rgba(149, 190, 237, 0.89));
+   
+
   }
   
   .headinng {

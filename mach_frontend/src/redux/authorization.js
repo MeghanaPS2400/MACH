@@ -48,7 +48,22 @@ export const authapi = createApi({
     logout: builder.query({
       query: () => "/auth/logout", // Ensure correct endpoint path
     }),
+    getAdminUsers: builder.query({
+      query: () => "/auth/all",
+    }),
+    updateUser: builder.mutation({
+      query({ id, role }) {
+        return {
+          url: `/auth/${id}/role`,
+          method: "PUT",
+          params: {
+            role: role,
+          },
+        };
+      },
+      invalidatesTags: ["AdminUsers"],
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLazyLogoutQuery } = authapi;
+export const { useLoginMutation, useRegisterMutation, useLazyLogoutQuery, useGetAdminUsersQuery, useUpdateUserMutation } = authapi;

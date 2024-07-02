@@ -13,6 +13,8 @@ import Employeeskill from './Components/employeeskill';
 import Login from './Components/login';
 import Register from './Components/registration';
 import Main from './Components/main';
+import ListUsers from './admin/userlist';
+import UpdateUserRole from './admin/updateuser';
 
 function App() {
   return (
@@ -36,7 +38,8 @@ function App() {
           <Route path="/Components/comparisionanalysis" element={<ComparisionAnalysis />} />
           <Route path="/Components/employeeskill" element={<Employeeskill />} />
           <Route path="/Components/registration" element={<Register />} />
-          {/* You can add more routes as needed */}
+          <Route path="/admin/userlist" element={<ListUsers/>}></Route>
+          <Route path="/admin/users/:id" element={<UpdateUserRole/>} />
         </Routes>
      
      

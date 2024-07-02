@@ -1,0 +1,23 @@
+.adminLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 30px;
+  }
+  
+  .searchContainer {
+    width: 300px; /* Adjust width as needed */
+    margin-right: 20px;
+    margin-top: 5px;; /* Adjust margin between search bar and table */
+  }
+  
+  .tableContainer {
+    width:70%;
+   /* Allow the table to take remaining space */
+  }
+  /* Add this CSS to adjust the size of the edit icon */
+.tableContainer a.btn i.fa-pencil {
+    font-size: 18px; /* Adjust icon size as needed */
+  }
+  
+  

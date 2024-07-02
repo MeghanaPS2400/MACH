@@ -2,7 +2,13 @@
   padding:0;}
   
   /*home.js*/
-  
+  .App {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+
   body{background: #efeded;
     font-family: "Poppins", sans-serif;
   }
