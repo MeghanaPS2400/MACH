@@ -6,19 +6,14 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import logo from '../assets/logo.png';
-import '../styles/main.css'; 
-import { useLazyLogoutQuery } from "../redux/authorization.js";
+import '../styles/main.css'; // Ensure this CSS file has the necessary styles
  
 const Layout = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation(); // Get current location from React Router
-  const [logout] = useLazyLogoutQuery();
+ 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-  const logoutHandler = () => {
-    logout();
-  
   };
  
   const handleMenuClose = () => {
@@ -87,7 +82,7 @@ const Layout = ({ children }) => {
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose} className="admin-class">
                   <SupervisorAccountIcon sx={{ marginRight: 1 }} />
-                  <Link to="/admin/userlist">Admin</Link>
+                  <Link to="/Admin">Admin</Link>
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose} className="logoutt-class">
                   <ExitToAppIcon sx={{ marginRight: 1 }} />

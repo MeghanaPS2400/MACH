@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { Axios } from "axios";
+import AxiosInstance from "./axiosInstance";
 
 export const FetchSummarydata= createAsyncThunk(
     'summary/fetchSummarydata',
@@ -33,7 +35,7 @@ const Summaryslice= createSlice({
         })
         .addCase(FetchSummarydata.rejected,(state)=>{
             state.status='failed';
-            state.error = action.payload;
+           
         })
     }
 })
