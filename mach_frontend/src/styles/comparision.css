@@ -1,0 +1,51 @@
+/* chart.css */
+#chartdiv {
+    width: 100%;
+    background-image: linear-gradient(to right top, rgba(255, 172, 182, 0.603), rgba(226, 188, 192, 0.29), rgba(168, 205, 247, 0.612));
+  }
+
+  .comparison{ 
+              width:100%;
+
+            }
+  
+  .filter-togglebar-comparison{  position: fixed;
+    top: 35%;
+    left:0; 
+    cursor: pointer;
+    z-index: 1000;
+    background: none;
+    border:none;
+    color:black;
+    border-radius: 2px;
+    width:30px;
+    height:60px;
+    font-weight:800;}
+
+  .filter-togglebar-comparison2{
+    position: fixed;
+    top: 55%;
+    left:0; 
+    cursor: pointer;
+    z-index: 1000;
+    background: none;
+    border:none;
+    color:black;
+    border-radius: 2px;
+    width:100px;
+    height:60px;
+    font-weight:800;
+   
+  }
+
+  .transform-text{
+    margin-left:-30px;
+    width:90px;
+    transform:rotate(-90deg);
+    background-color:rgba(0,0,0,0.2);
+  }
+
+  .transform-text-h3{
+    margin-left:-30px;
+    width:90px;
+  }

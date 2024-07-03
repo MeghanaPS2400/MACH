@@ -25,7 +25,7 @@ const FilterSidebar = ({ isVisible, filters, onApplyFilters, toggleSidebar, setS
       account: [],
       manager_name: [],
       validated: [],
-      rating: ['4', '5'],
+      rating: [],
       tenure: [],
       iteration: [],
    
@@ -65,7 +65,7 @@ const FilterSidebar = ({ isVisible, filters, onApplyFilters, toggleSidebar, setS
   };
 
   return (
-    <div className={sidebarClass} onMouseLeave={() => { toggleSidebar(); setModalVisible(false) }}>
+    <div className={sidebarClass} onMouseClick={() => { toggleSidebar(); setModalVisible(false) }}>
       {filters.map((filter, index) => (
         <div key={index} className="filter-option">
           <button

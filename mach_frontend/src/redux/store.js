@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './smeSlice';
 import replacementReducer from './replacementslice.js';
 import talentReducer from './talentReducer';
+import ComparisonReducer from './ComparisonReducer.js';
 import authReducer from './autorizationslice.js';
 import { authapi } from './authorization.js';
 
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   users: userReducer,
   replacement: replacementReducer,
   talent: talentReducer,
+  comparison: ComparisonReducer,
   auth: authReducer, // Add authReducer here
   [authapi.reducerPath]: authapi.reducer, // Add authapi reducer
 });
