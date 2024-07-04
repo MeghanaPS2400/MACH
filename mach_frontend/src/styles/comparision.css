@@ -1,51 +1,98 @@
-/* chart.css */
 #chartdiv {
-    width: 100%;
-    background-image: linear-gradient(to right top, rgba(255, 172, 182, 0.603), rgba(226, 188, 192, 0.29), rgba(168, 205, 247, 0.612));
-  }
-
-  .comparison{ 
-              width:100%;
-
-            }
+  flex: 1;
   
-  .filter-togglebar-comparison{  position: fixed;
-    top: 35%;
-    left:0; 
-    cursor: pointer;
-    z-index: 1000;
-    background: none;
-    border:none;
-    color:black;
-    border-radius: 2px;
-    width:30px;
-    height:60px;
-    font-weight:800;}
+  min-width: 0; /* Prevents flex item from overflowing */
+}
 
-  .filter-togglebar-comparison2{
-    position: fixed;
-    top: 55%;
-    left:0; 
-    cursor: pointer;
-    z-index: 1000;
-    background: none;
-    border:none;
-    color:black;
-    border-radius: 2px;
-    width:100px;
-    height:60px;
-    font-weight:800;
-   
-  }
+.comparison-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height of the viewport */
+  overflow: hidden; /* Prevent scrolling */
+  background-image: linear-gradient(to right top, rgba(255, 172, 182, 0.603), rgba(226, 188, 192, 0.29), rgba(168, 205, 247, 0.612));
+}
 
-  .transform-text{
-    margin-left:-30px;
-    width:90px;
-    transform:rotate(-90deg);
-    background-color:rgba(0,0,0,0.2);
-  }
+.comparison {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}
 
-  .transform-text-h3{
-    margin-left:-30px;
-    width:90px;
-  }
+.gauge-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  height:40px;
+}
+
+
+.filter-togglebar-comparison {
+  position: fixed;
+  top: 35%;
+  left: 0;
+  cursor: pointer;
+  z-index: 1000;
+  background: none;
+  border: none;
+  color: black;
+  border-radius: 2px;
+  width: 30px;
+  height: 60px;
+  font-weight: 800;
+}
+
+.filter-togglebar-comparison2 {
+  position: fixed;
+  top: 55%;
+  left: 0;
+  cursor: pointer;
+  z-index: 1000;
+  background: none;
+  border: none;
+  color: black;
+  border-radius: 2px;
+  width: 100px;
+  height: 60px;
+  font-weight: 800;
+}
+
+.transform-text {
+  margin-left: -30px;
+  width: 90px;
+  transform: rotate(-90deg);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.transform-text-h3 {
+  margin-left: -30px;
+  width: 90px;
+}
+
+.team-members1{
+  background-color:rgba(181, 205, 234, 0.525);
+  width:18rem;
+  padding:10px;
+  box-shadow:1px 1px 2px 2px grey;
+  position:fixed;
+  bottom:10px;
+  left:0;
+}
+
+.team-members2{
+  background-color:rgba(181, 205, 234, 0.525);
+  width:18rem;
+  padding:10px;
+  box-shadow:-1px 1px 2px 2px grey;
+  position:fixed;
+  bottom:10px;
+  right:0;
+}
+
+
+

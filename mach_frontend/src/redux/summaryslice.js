@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import { Axios } from "axios";
+import AxiosInstance from "./axiosInstance";
+ 
 export const FetchSummarydata= createAsyncThunk(
     'summary/fetchSummarydata',
     async (queryParams = '', { rejectWithValue }) => {
@@ -11,31 +13,31 @@ export const FetchSummarydata= createAsyncThunk(
         }
       }
 );
-
+ 
 const initialState={
      status:'idle',
      error:'null',
 }
-
+ 
 const Summaryslice= createSlice({
     name:'summary',
     initialState,
     reducers:{},
-
+ 
     extraReducers: (builder)=>{
         builder
         .addCase(FetchSummarydata.pending, (state)=>{
             state.status='loading';
         })
-
+ 
         .addCase(FetchSummarydata.fulfilled, (state)=>{
             state.status='succedded';
         })
         .addCase(FetchSummarydata.rejected,(state)=>{
             state.status='failed';
-            state.error = action.payload;
+           
         })
     }
 })
-
+ 
 export default Summaryslice.reducer;

@@ -28,7 +28,6 @@ const FilterSidebar = ({ isVisible, filters, onApplyFilters, toggleSidebar, setS
       rating: [],
       tenure: [],
       iteration: [],
-   
       serviceline_name:[],
       functions:[]
       // Add other filters as needed

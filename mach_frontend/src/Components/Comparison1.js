@@ -1,12 +1,10 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchComparison1Data } from "../redux/ComparisonReducer";
 import FilterSidebar from '../others/sidebar';
 import loading from "../assets/loading.gif";
 import '../styles/sidebar.css';
 import '../styles/table.css';
-
-
 
 const Comparison1 = () => {
   const dispatch = useDispatch();
@@ -43,6 +41,28 @@ const Comparison1 = () => {
 
     dispatch(fetchComparison1Data(`?${queryParams}`));
     setSidebarVisible(false);
+
+    // Calculate and log the member and designation count
+    const filteredUsers = users1.filter(user => {
+      return Object.keys(selectedFilters).every(key => {
+        if (selectedFilters[key].length === 0) return true;
+        return selectedFilters[key].includes(user[key]);
+      });
+    });
+
+    const designationCount = filteredUsers.reduce((acc, user) => {
+      const designation = user.designation;
+      if (!acc[designation]) {
+        acc[designation] = 0;
+      }
+      acc[designation]++;
+      return acc;
+    }, {});
+
+    console.log(`Total Members: ${filteredUsers.length}`);
+    Object.entries(designationCount).forEach(([designation, count]) => {
+      console.log(`${designation}: ${count}`);
+    });
   };
 
   const toggleSidebar = () => {
@@ -80,7 +100,7 @@ const Comparison1 = () => {
   return (
     <div className="comparison">
       <button className="filter-togglebar-comparison" onClick={toggleSidebar}>
-        {isSidebarVisible ? <span>&lt;</span> : <h3 class="transform-text">Filter1</h3>}
+        {isSidebarVisible ? <span>&lt;</span> : <h3 className="transform-text">Filter1</h3>}
       </button>
       <FilterSidebar
         isVisible={isSidebarVisible}
@@ -95,7 +115,3 @@ const Comparison1 = () => {
 };
 
 export default Comparison1;
-
-
-
-  

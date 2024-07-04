@@ -8,13 +8,13 @@ import ReplacementCard from './replacemntcard'; // Assuming you have a Replaceme
 import '../styles/sidebar.css';
 import '../styles/replacement.css';
 import Layout from '../others/Layout';
-
+ 
 const FilteredCount = ({ count }) => (
   <div className='filteredCount'>
     <h3>Number of People: {count}</h3>
   </div>
 );
-
+ 
 const SkillTable = ({ skills, overallrating, selectedName }) => (
   <div className="user-skill">
     <div className='scrollable'>
@@ -43,7 +43,7 @@ const SkillTable = ({ skills, overallrating, selectedName }) => (
     </div>
   </div>
 );
-
+ 
 function ReplacementFinder() {
   const dispatch = useDispatch();
   const {
@@ -54,7 +54,7 @@ function ReplacementFinder() {
     status,
     error,
   } = useSelector((state) => state.replacement);
-
+ 
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     name: [],
@@ -63,14 +63,14 @@ function ReplacementFinder() {
     account: [],
     rating: [],
   });
-
+ 
   const [sortBy, setSortBy] = useState(null);
   const [sortDirection, setSortDirection] = useState('desc');
   const [currentPage, setCurrentPage] = useState(1);
-
+ 
   const sortedFilteredMatches = useMemo(() => {
     if (!sortBy) return filteredMatches;
-
+ 
     return [...filteredMatches].sort((a, b) => {
       switch (sortBy) {
         case 'matching_skills':
@@ -82,25 +82,25 @@ function ReplacementFinder() {
       }
     });
   }, [filteredMatches, sortBy, sortDirection]);
-
+ 
   useEffect(() => {
     dispatch(fetchReplacementData());
   }, [dispatch]);
-
+ 
   const handleApplyFilters = (selectedFilters) => {
     const queryParams = Object.keys(selectedFilters)
       .filter(key => selectedFilters[key].length > 0)
       .map(key => selectedFilters[key].map(value => `${key}=${encodeURIComponent(value)}`).join('&'))
       .join('&');
-
+ 
     dispatch(fetchReplacementData(`?${queryParams}`));
     setSidebarVisible(false);
   };
-
+ 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
-
+ 
   const handleSort = (columnName) => {
     if (columnName === sortBy) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
@@ -109,20 +109,20 @@ function ReplacementFinder() {
       setSortDirection('desc'); // Default to descending order on first click
     }
   };
-
+ 
   const totalPages = Math.ceil(sortedFilteredMatches.length / 6); // Changed to 6 cards per page
   const startIdx = (currentPage - 1) * 8; // Changed to 6 cards per page
   const endIdx = startIdx + 8; // Changed to 6 cards per page
   const currentMatches = sortedFilteredMatches.slice(startIdx, endIdx);
-
+ 
   const handleNextPage = () => {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
   };
-
+ 
   const handlePrevPage = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
   };
-
+ 
   if (status === 'loading') {
     return (
       <div className="Talentloading">
@@ -130,13 +130,13 @@ function ReplacementFinder() {
       </div>
     );
   }
-
+ 
   if (status === 'failed') {
     return <p>{error}</p>;
   }
-
+ 
   const selectedName = selectedFilters.name.length > 0 ? selectedFilters.name[0] : '';
-
+ 
   const filters = [
     {
       name: 'name',
@@ -170,11 +170,11 @@ function ReplacementFinder() {
       ]
     }
   ];
-
+ 
   return (
     <Layout>
       <div className="replacement-finder">
-
+ 
         <button className="filter-togglebar" onClick={toggleSidebar}>
           {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
         </button>
@@ -209,5 +209,5 @@ function ReplacementFinder() {
     </Layout>
   );
 }
-
+ 
 export default ReplacementFinder;

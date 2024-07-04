@@ -212,6 +212,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Layout from '../others/Layout';
+import GaugeChart from 'react-gauge-chart';
  
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
  
@@ -375,7 +376,8 @@ const TalentFinder = () => {
         data: Object.values(skillCounts),
         backgroundColor: 'rgba(75, 192, 192, 0.8)',
         borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
+        borderWidth: 1,
+        yAxisID: 'y'
       },
       {
         type: 'line',
@@ -384,11 +386,12 @@ const TalentFinder = () => {
         backgroundColor: 'rgba(255, 99, 132, 0.6)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 2,
-        fill: false
+        fill: false,
+        yAxisID: 'y1'
       }
     ]
   };
- 
+
   const options = {
     responsive: true,
     plugins: {
@@ -403,12 +406,37 @@ const TalentFinder = () => {
     onClick: (event, elements) => handleBarClick(elements),
     scales: {
       y: {
+        type: 'linear',
+        display: true,
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Skill Count'
+        },
         ticks: {
+          beginAtZero: true,
           stepSize: 1000 // Adjust this value to change the y-axis scale increments
         },
         grid: {
           display: false // Remove the grid
         }
+      },
+      y1: {
+        type: 'linear',
+        display: true,
+        position: 'right',
+        title: {
+          display: true,
+          text: 'Average Rating'
+        },
+        ticks: {
+          beginAtZero: true,
+          precision: 2
+        },
+        grid: {
+          display: false // Remove the grid
+        },
+        suggestedMax: 5 // Adjust this value based on your data range
       },
       x: {
         grid: {
@@ -417,7 +445,8 @@ const TalentFinder = () => {
       }
     }
   };
- 
+
+  
   // Sort users based on average rating
   const sortedUsers = [...users].sort((a, b) => b.average_rating - a.average_rating);
  
@@ -469,9 +498,9 @@ const TalentFinder = () => {
           </div>
         </>
       )}
- 
+     
       {view === 'table' && (
-        <div>
+        <div className="talent-table-container">
         <TableContainer component={Paper} sx={{ maxHeight: 320 }} className='table-container'>
           <Table stickyHeader aria-label="sticky table" className='user-table'>
             <TableHead className='table-header'>

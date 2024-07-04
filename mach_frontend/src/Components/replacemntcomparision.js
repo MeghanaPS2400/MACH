@@ -1,12 +1,13 @@
+/*replacementcomparision*/
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-
+ 
 const SkillComparisonChart = ({ matchedSkills, skillAvgRatings}) => {
   // Extract labels (skills) and ratings from the selectedSkills and employeeSkills objects
   const labels = Object.keys(matchedSkills);
   const selectedSkillsRatings = Object.values(matchedSkills);
   const employeeSkillsRatings = labels.map(skill => skillAvgRatings[skill] || 0); // Ensure 0 if skill not found
-
+ 
   // Prepare data for the chart
   const data = {
     labels: labels,
@@ -31,7 +32,7 @@ const SkillComparisonChart = ({ matchedSkills, skillAvgRatings}) => {
       },
     ],
   };
-
+ 
   // Chart options
   const options = {
     scales: {
@@ -43,7 +44,7 @@ const SkillComparisonChart = ({ matchedSkills, skillAvgRatings}) => {
       }],
     },
   };
-
+ 
   return (
     <div>
       <h3>Skill Comparison</h3>
@@ -51,5 +52,5 @@ const SkillComparisonChart = ({ matchedSkills, skillAvgRatings}) => {
     </div>
   );
 };
-
+ 
 export default SkillComparisonChart;

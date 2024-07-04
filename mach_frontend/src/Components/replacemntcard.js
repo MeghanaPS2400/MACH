@@ -1,3 +1,4 @@
+/*replacement card*/ 
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +10,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { Tooltip } from 'react-tooltip';
 import '../styles/replacement.css';
 import SkillComparisonChart from './replacemntcomparision';
-
+ 
 const modalStyle = {
   position: 'absolute',
   top: '50%',
@@ -21,12 +22,12 @@ const modalStyle = {
   boxShadow: 24,
   p: 4,
 };
-
+ 
 const ReplacementCard = ({ employee, skillAvgRatings }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+ 
   return (
     <div>
       <div className="replacement-card" onClick={handleOpen}>
@@ -81,5 +82,5 @@ const ReplacementCard = ({ employee, skillAvgRatings }) => {
     </div>
   );
 };
-
+ 
 export default ReplacementCard;

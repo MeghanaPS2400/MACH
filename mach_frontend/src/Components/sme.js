@@ -13,8 +13,11 @@ import TableCell from '@mui/material/TableCell';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import Pagination from '../others/pagination';
+import { Doughnut } from 'react-chartjs-2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartPie, faTable } from '@fortawesome/free-solid-svg-icons';
 import '../styles/SME.css';
-import '../styles/table.css'
+import '../styles/table.css';
  
 const Sme = () => {
   const dispatch = useDispatch();
@@ -22,7 +25,7 @@ const Sme = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     name: [],
-    designation: ['Senior Associate', 'Associate Principal', 'Manager','Principal'],
+    designation: ['Senior Associate', 'Associate Principal', 'Manager', 'Principal'],
     lead: [],
     skills: [],
     account: [],
@@ -35,6 +38,7 @@ const Sme = () => {
     functions: [],
   });
   const [appliedFilters, setAppliedFilters] = useState(selectedFilters);
+  const [view, setView] = useState('table'); // State to manage view (graph or table)
  
   // Pagination state
   const [page, setPage] = useState(0);
@@ -56,6 +60,7 @@ const Sme = () => {
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
+ 
   const handleFilterClick = (type, value) => {
     if (type === 'skills') {
       // Toggle selection for skills
@@ -85,6 +90,7 @@ const Sme = () => {
     return <p className="Talentloading">{error}</p>;
   }
  
+  // Flatten skills for each user into an array of objects
   const userSkills = users.flatMap(
     ({ id, name, designation, account, skills, tenure, iteration, serviceline_name, functions }) =>
       Object.entries(skills).map(([skill, rating]) => ({
@@ -101,7 +107,9 @@ const Sme = () => {
       }))
   );
  
-  const uniqueEmployeeCount = [...new Set(userSkills.map((item) => item.name))].length;
+  // Calculate unique employee count based on filtered user skills
+  const filteredUserSkills = userSkills.filter(({ skill }) => appliedFilters.skills.length === 0 || appliedFilters.skills.includes(skill));
+  const uniqueEmployeeCount = [...new Set(filteredUserSkills.map((item) => item.name))].length;
  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -185,56 +193,138 @@ const Sme = () => {
     },
   ];
  
+  const getSkillDistribution = (users) => {
+    const skillCounts = {};
+ 
+    users.forEach(({ skills }) => {
+      Object.keys(skills).forEach((skill) => {
+        if (skillCounts[skill]) {
+          skillCounts[skill]++;
+        } else {
+          skillCounts[skill] = 1;
+        }
+      });
+    });
+ 
+    const labels = Object.keys(skillCounts);
+    const data = Object.values(skillCounts);
+ 
+    // Gradient colors based on provided color variables
+    const colors = [
+      '#edf6fd',
+      '#daedfb',
+      '#c2e0f8',
+      '#a2cff5',
+      '#71b5f0',
+      '#2f91ea',
+      '#1471c9',
+      '#0f5496',
+      '#0b3d6d',
+      '#082c4d',
+    ];
+ 
+    const gradientColors = colors.map((color, index) => {
+      return {
+        offset: Math.round(index * (100 / colors.length)) + '%',
+        color,
+      };
+    });
+ 
+    return {
+      labels,
+      datasets: [
+        {
+          data,
+          backgroundColor: gradientColors.map((color) => color.color),
+        },
+      ],
+    };
+  };
+ 
+  // Prepare data for the Doughnut chart
+  const skillDistribution = getSkillDistribution(users);
+ 
   return (
-    <Layout>
-    <div className="sme-finder">
-     
+    <>
+      <Layout />
+      <div className="sme-finder">
         <h4 className="screen-title">Subject Matter Expert</h4>
         <button className="filter-togglebar" onClick={toggleSidebar}>
-          {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
+         {isSidebarVisible ? <span>&lt;</span> : <span>&gt;</span>}
         </button>
+        <div className="toggle-icons">
+         
+          <FontAwesomeIcon
+            icon={faTable}
+            className={`toggle-icon ${view === 'table' ? 'active' : ''}`}
+            onClick={() => setView('table')}
+          />
+          <FontAwesomeIcon
+            icon={faChartPie}
+            className={`toggle-icon ${view === 'graph' ? 'active' : ''}`}
+            onClick={() => setView('graph')}
+          />
+        </div>
  
         <div className="count-box">
           <h3>Number of Employees:</h3>
           <p>{uniqueEmployeeCount}</p>
         </div>
  
-        <TableContainer  className='table-container' component={Paper} sx={{ maxHeight: 390 }}>
-          <Table stickyHeader aria-label="sticky table" className='user-table'>
-           
-            <TableHead className='table-header'>
-              <TableRow className='table-rows-data'>
-                <TableCell>Name</TableCell>
-                <TableCell>Designation</TableCell>
-                <TableCell>Account</TableCell>
-                <TableCell>Service Line</TableCell>
-                <TableCell>Tenure</TableCell>
-                <TableCell>Iteration</TableCell>
-                <TableCell>Skill</TableCell>
-                <TableCell>Rating</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {userSkills
-                .filter(({ skill }) => appliedFilters.skills.length === 0 || appliedFilters.skills.includes(skill))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(({ id, name, designation, account, skill, rating, tenure, iteration, serviceline_name }) => (
-                  <TableRow key={`${id}-${skill}`} className="table-rows-data">
-                    <TableCell>{name}</TableCell>
-                    <TableCell>{designation}</TableCell>
-                    <TableCell>{account}</TableCell>
-                    <TableCell>{serviceline_name}</TableCell>
-                    <TableCell>{tenure}</TableCell>
-                    <TableCell>{iteration}</TableCell>
-                    <TableCell onClick={() => handleFilterClick('skills', skill)} className="clickable-cell">{skill}</TableCell>
-                    <TableCell onClick={() => handleFilterClick('rating', rating.toString())} className="clickable-cell">{value(rating)}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {view === 'graph' && (
+          <div className="chart-container">
+            <h3 className='skillclass'>Skills Distribution</h3>
+            <div className="chart-center">
+              <Doughnut data={skillDistribution} />
+            </div>
+          </div>
+        )}
  
-        {/* Pagination */}
+        {view === 'table' && (
+          <>
+          <TableContainer className='table-container' component={Paper} sx={{ maxHeight: 390 }}>
+            <Table stickyHeader aria-label="sticky table" className='user-table'>
+              <TableHead className='table-header'>
+                <TableRow className='table-rows-data'>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Designation</TableCell>
+                  <TableCell>Account</TableCell>
+                  <TableCell>Service Line</TableCell>
+                  <TableCell>Tenure</TableCell>
+                  <TableCell>Iteration</TableCell>
+                  <TableCell>Skill</TableCell>
+                  <TableCell>Rating</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredUserSkills
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(({ id, name, designation, account, skill, rating, tenure, iteration, serviceline_name }) => (
+                    <TableRow key={`${id}-${skill}`} className="table-rows-data">
+                      <TableCell>{name}</TableCell>
+                      <TableCell>{designation}</TableCell>
+                      <TableCell>{account}</TableCell>
+                      <TableCell>{serviceline_name}</TableCell>
+                      <TableCell>{tenure}</TableCell>
+                      <TableCell>{iteration}</TableCell>
+                      <TableCell onClick={() => handleFilterClick('skills', skill)} className="clickable-cell">{skill}</TableCell>
+                      <TableCell onClick={() => handleFilterClick('rating', rating.toString())} className="clickable-cell">{value(rating)}</TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Pagination
+          component="div"
+          count={filteredUserSkills.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+          </>
+        )}
+ 
         <FilterSidebar
           isVisible={isSidebarVisible}
           filters={filters}
@@ -243,19 +333,12 @@ const Sme = () => {
           setSelectedFilters={setSelectedFilters}
           selectedFilters={selectedFilters}
         />
-        <Pagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={userSkills.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-     
-    </div>
-    </Layout>
+       
+      </div>
+    </>
   );
 };
+/**/
  
 export default Sme;
+ 
